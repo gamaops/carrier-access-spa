@@ -1,0 +1,33 @@
+<header bp="4 offset-5">
+  <button>
+    return
+  </button>
+</header>
+<main bp="grid 4 offset-5">
+  <form [formGroup]="singUpForm" (ngSubmit)="onSubmit()">
+    <div class="form__field">
+      <input appFormField formControlName="name" type="text" name="name" [value]="lead.getName()" (ngModelChange)="lead.setName($event)" autocomplete />
+      <label>Nome</label>
+      <i class="icon icon-email"></i>
+      <span class="feedback">
+        <i class="icon icon-{{ name.valid ? 'check' : 'remove' }}"></i>
+      </span>
+    </div>
+
+    <!-- <fieldset>
+      <legend>Oque você prefere usar?</legend>
+      <input formControlName="validationChannel" type="radio" id="radio-one" name="channel" value="yes" checked/>
+      <label for="radio-one">Celular</label>
+      <input type="radio" id="radio-two" name="channel" value="no" />
+      <label for="radio-two">Email</label>
+    </fieldset> -->
+
+    <div class="form__group">
+      <label>Email</label>
+      <input formControlName="email" type="text" name="email" [value]="lead.getEmail()" (ngModelChange)="lead.setEmail($event)" autocomplete/>
+      <span class="form__feedback"></span>
+    </div>
+
+    <button type="submit" [disabled]="!singUpForm.valid">Continuar</button>
+  </form>
+</main>
