@@ -163,8 +163,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "base-href": "https://gamaops.github.io/registry-front-spa/",
-            "name": "registry"
+            "baseHref": "https://gamaops.github.io/registry-front-spa/"
           }
         }
       }
