@@ -15,6 +15,8 @@
 	var icons = {
 		'icon-book-open': '&#xe906;',
 		'icon-email': '&#xe901;',
+		'icon-user': '&#xe908;',
+		'icon-mobile': '&#xe907;',
 		'icon-user-check': '&#xe904;',
 		'icon-arrow-left': '&#xe900;',
 		'icon-image': '&#xe905;',

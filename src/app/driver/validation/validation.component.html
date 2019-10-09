@@ -1,0 +1,31 @@
+<header>
+  <a class="button style--icon" [routerLink]="'/motorista'">
+    <i class="icon icon-arrow-left"></i>
+  </a>
+
+  <h1 class="title">Ja recebeu?</h1>
+  <p>Te enviamos um código. Pode nos informar?</p>
+</header>
+<main>
+  <form [formGroup]="validateForm" (ngSubmit)="onSubmit()">
+    <div class="form__field code">
+      <input
+        *ngFor="let _ of codeSize; let i = index;"
+        type="number"
+        inputmode="numeric"
+        [name]="fieldName + i"
+        [appFocusNext]="focus === i"
+        [formControlName]="fieldName + i"
+        (input)="next($event)"
+      />
+    </div>
+    <button
+      type="submit"
+      [disabled]="validateForm.invalid"
+      [appFocusNext]="focus === codeSize.length"
+      class="button style--default color--yellow"
+    >
+      Continuar
+    </button>
+  </form>
+</main>

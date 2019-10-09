@@ -1,33 +1,61 @@
-<header bp="4 offset-5">
-  <button>
-    return
-  </button>
+<header>
+  <a class="button style--icon"  [routerLink]="'/motorista'">
+    <i class="icon icon-arrow-left"></i>
+  </a>
+
+  <h1 class="title">Como podemos falar com você?</h1>
+  <p>Não se preucupe não vamos te ligar</p>
 </header>
-<main bp="grid 4 offset-5">
+<main>
   <form [formGroup]="singUpForm" (ngSubmit)="onSubmit()">
-    <div class="form__field">
-      <input appFormField formControlName="name" type="text" name="name" [value]="lead.getName()" (ngModelChange)="lead.setName($event)" autocomplete />
-      <label>Nome</label>
-      <i class="icon icon-email"></i>
-      <span class="feedback">
-        <i class="icon icon-{{ name.valid ? 'check' : 'remove' }}"></i>
-      </span>
+    <div class="form__field text">
+      <input appFormField formControlName="name" id="name" type="text" name="name" [value]="lead.getName()"
+        (ngModelChange)="lead.setName($event)" autocomplete />
+      <label for="name">
+        {{
+            name.untouched || (name.dirty && !name.errors) ? 'Nome' : (
+            (name.errors.required ? 'Digite seu nome' : '') ||
+            (name.errors.minlength ? 'Nome muito curto' : '')
+          )
+        }}
+      </label>
+      <i class="icon icon-{{ name.touched ? (name.valid ? 'check' : 'remove') : 'user' }}"></i>
     </div>
 
-    <!-- <fieldset>
-      <legend>Oque você prefere usar?</legend>
-      <input formControlName="validationChannel" type="radio" id="radio-one" name="channel" value="yes" checked/>
-      <label for="radio-one">Celular</label>
-      <input type="radio" id="radio-two" name="channel" value="no" />
-      <label for="radio-two">Email</label>
-    </fieldset> -->
+    <fieldset class="form__field switch">
+      <input formControlName="validationChannel" type="checkbox" id="validationChannel"
+        (ngModelChange)="changeChannel(+$event)" />
+      <label for="validationChannel" data-on="Celular" data-off="Email"></label>
+    </fieldset>
 
-    <div class="form__group">
-      <label>Email</label>
-      <input formControlName="email" type="text" name="email" [value]="lead.getEmail()" (ngModelChange)="lead.setEmail($event)" autocomplete/>
-      <span class="form__feedback"></span>
+    <div *ngIf="show.email" class="form__field text" @TopFade>
+      <input appFormField formControlName="email" id="email" type="email" name="email" [value]="lead.getEmail()"
+        (ngModelChange)="lead.setEmail($event)" autocomplete />
+      <label for="email">
+        {{
+            email.untouched || (email.dirty && !email.errors) ? 'Email' : (
+            (email.errors.required ? 'Digite seu email' : '') ||
+            (email.errors.email ? 'Email inválido' : '')
+          )
+        }}
+      </label>
+      <i class="icon icon-{{ email.touched ? (email.valid ? 'check' : 'remove') : 'email' }}"></i>
     </div>
 
-    <button type="submit" [disabled]="!singUpForm.valid">Continuar</button>
+    <div *ngIf="show.cellphone" class="form__field text" @TopFade>
+      <input appFormField formControlName="cellphone" id="cellphone" type="tel" name="cellphone"
+        [value]="lead.getCellphone()" (ngModelChange)="lead.setCellphone($event)" autocomplete />
+      <label for="cellphone">
+        {{
+            cellphone.untouched || (cellphone.dirty && !cellphone.errors) ? 'Celular' : (
+            (cellphone.errors.required ? 'Digite um numero' : '') ||
+            (cellphone.errors.pattern ? 'Não é possivel usar este numero' : '')
+          )
+        }}
+      </label>
+      <i class="icon icon-{{ cellphone.touched ? (cellphone.valid ? 'check' : 'remove') : 'mobile' }}"></i>
+    </div>
+
+    <button type="submit" class="button style--default color--yellow" [disabled]="singUpForm.invalid">Continuar</button>
   </form>
 </main>

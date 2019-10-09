@@ -5,15 +5,8 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class FormFieldDirective {
 
-  public readonly parent = this.element.nativeElement.parentElement;
-
-  @HostListener('focus') onFocus() {
-  }
-
   @HostListener('blur') onBlur() {
-  }
-
-  @HostListener('keyup') onKeyUp() {
+    this.element.nativeElement.classList.toggle('ng-dirty', this.element.nativeElement.value.length);
   }
 
   constructor(

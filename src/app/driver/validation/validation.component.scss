@@ -1,0 +1,29 @@
+:host[app-page="validation"] {
+  width: 100%;
+}
+
+header {
+  height: 20%;
+  display: grid;
+  text-align: center;
+  align-items: center;
+  grid-template-areas: 'return r1c1 r1c2'
+  'r2c1 title r1c3'
+  'r3c1 paragraph r3c3';
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: 3fr 3fr 1fr;
+
+  .button {
+    align-self: end;
+    grid-area: return;
+    font-size: 1.5em;
+  }
+
+  h1 {
+    grid-area: title;
+  }
+
+  p {
+    grid-area: paragraph;
+  }
+}

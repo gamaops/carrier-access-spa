@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icons';
-  src:  url('fonts/icons.eot?lhsukn');
-  src:  url('fonts/icons.eot?lhsukn#iefix') format('embedded-opentype'),
-    url('fonts/icons.ttf?lhsukn') format('truetype'),
-    url('fonts/icons.woff?lhsukn') format('woff'),
-    url('fonts/icons.svg?lhsukn#icons') format('svg');
+  src:  url('fonts/icons.eot?d9wh5x');
+  src:  url('fonts/icons.eot?d9wh5x#iefix') format('embedded-opentype'),
+    url('fonts/icons.ttf?d9wh5x') format('truetype'),
+    url('fonts/icons.woff?d9wh5x') format('woff'),
+    url('fonts/icons.svg?d9wh5x#icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -30,6 +30,12 @@ i {
 }
 .icon-email:before {
   content: "\e901";
+}
+.icon-user:before {
+  content: "\e908";
+}
+.icon-mobile:before {
+  content: "\e907";
 }
 .icon-user-check:before {
   content: "\e904";

@@ -1,70 +1,68 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { SignUpLead } from '@gamaops/definitions/identity/web/v1';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
+import { TopFadeAnimation } from 'src/app/shared/animations/top-fade.animation';
+
 import { nameValidator } from 'src/app/shared/validators/name.validator';
 import { emailValidator } from 'src/app/shared/validators/email.validator';
 import { cellphoneValidator } from 'src/app/shared/validators/cellphone.validator';
-import { binaryValidator } from 'src/app/shared/validators/binary.validator';
+import { IdentityService } from 'src/app/shared/services/identity/identity.service';
 
 @Component({
-  selector: 'div[appSignup]',
+  selector: 'div[app-page="signup"]',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  animations: [
+    TopFadeAnimation,
+  ]
 })
 export class SignupComponent implements OnInit {
-  public lead = new SignUpLead();
   public singUpForm: FormGroup;
+  public lead = new SignUpLead();
+
+  public show = { cellphone: true, email: false };
+  public readonly channels = ['email', 'cellphone'];
 
   public name = new FormControl(null, nameValidator);
   public email = new FormControl(null, emailValidator);
   public cellphone = new FormControl(null, cellphoneValidator);
-  public validationChannel = new FormControl(null, binaryValidator);
+  public validationChannel = new FormControl(true, { updateOn: 'change' });
 
   constructor(
+    private identityService: IdentityService,
     private formBuilder: FormBuilder,
-  ) {
-    // $('body').on('blur', 'input', function () {
-    //   if (!$(this).val().length > 0) {
-    //     $(this).parent().removeClass('focus');
-    //   }
-    // });
-
-    // $('body').on('keyup', 'input', function () {
-    //   if ($(this).val().length > 0) {
-    //     $(this).parent().addClass('active');
-    //   } else {
-    //     $(this).parent().removeClass('active wrong success');
-    //     $('label').text('Email')
-    //   }
-    // });
-
-    // $('body').on('keypress', 'input', function (event) {
-    //   var keyCode = event.which;
-
-    //   if (keyCode === 13) {
-    //     if ($(this).val().length > 0) {
-    //       if ($(this).val() === 'success@gmail.com') {
-    //         $('.group').removeClass('wrong');
-    //         $('.group').addClass('success');
-    //         $('label').text('Email')
-    //       } else {
-    //         $('.group').removeClass('success');
-    //         $('.group').addClass('wrong');
-    //         $('label').text('Email format invalid')
-    //       }
-    //     }
-    //   }
-    // });
-    this.name.getError;
-  }
+    private router: Router,
+  ) { }
 
   public ngOnInit(): void {
-    const { name, email, cellphone, validationChannel } = this;
-    this.singUpForm = this.formBuilder.group({ name, email, cellphone, validationChannel }, { updateOn: 'blur' });
+    this.mountForm();
+  }
+
+  public changeChannel(id: 0 | 1): void {
+    setTimeout(() => this.show[this.channels[id]] = true, 1000);
+    this.show.cellphone = false;
+    this.show.email = false;
+    this.mountForm(id);
+  }
+
+  public mountForm(id: 0 | 1 = 1): void {
+    this.lead.setValidationChannel(id);
+    const { name, validationChannel } = this;
+    this.singUpForm = this.formBuilder.group({
+      name,
+      validationChannel,
+      [this.channels[id]]: this[this.channels[id]],
+    }, { updateOn: 'blur' });
   }
 
   public onSubmit(): void {
-    console.log(this.lead.toObject());
+    this.identityService
+      .SignUpLead(this.lead)
+      .subscribe(
+        response => this.router
+          .navigateByUrl(`/motorista/validacao/${response.signUpId}`),
+      );
   }
 }

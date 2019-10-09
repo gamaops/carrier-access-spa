@@ -1,0 +1,56 @@
+:host[app-page="entry"] {
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 140px 140px;
+  grid-template-areas: 'header' 'main' 'footer';
+}
+
+header {
+  text-align: center;
+  figure {
+    img {
+      width: 15em;
+    }
+  }
+}
+
+main {
+  display: grid;
+  grid-row: 1fr 1fr 1fr;
+  justify-content: center;
+  grid-template-areas: 'r1' 'r2' 'r3';
+
+  .button {
+    &:nth-child(1) {
+      grid-area: r1;
+    }
+
+    &:nth-child(2) {
+      grid-area: r3;
+    }
+  }
+}
+
+footer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  p {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    display: flex;
+
+    &::before,
+    &::after {
+      content: ' ';
+      display: block;
+      background-color: black;
+      height: 1px;
+      width: 25%;
+      margin: 0 2em;
+    }
+  }
+}

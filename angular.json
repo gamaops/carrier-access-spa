@@ -43,6 +43,11 @@
             "styles": [
               "src/styles/main.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -122,6 +127,11 @@
             "styles": [
               "src/styles/main.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": []
           }
         },
@@ -148,6 +158,13 @@
             "production": {
               "devServerTarget": "registry-front-spa:serve:production"
             }
+          }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "base-href": "https://gamaops.github.io/registry-front-spa/",
+            "name": "registry"
           }
         }
       }

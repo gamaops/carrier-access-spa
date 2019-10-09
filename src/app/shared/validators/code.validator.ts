@@ -1,7 +1,8 @@
 import { Validators } from '@angular/forms';
 
-export const binaryValidator = [
+export const codeValidator = [
   Validators.required,
+  Validators.min(0),
+  Validators.max(9),
   Validators.maxLength(1),
-  Validators.pattern(/[0-1]{1}/),
 ];

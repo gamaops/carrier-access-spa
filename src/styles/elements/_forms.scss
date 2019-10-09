@@ -1,153 +1,218 @@
-$size-elements-height: 60px;
+$size-elements-height: 50px;
 
 .form {
+  display: flex;
+
   &__field {
     position: relative;
-    background: #fff;
-    height: $size-elements-height;
-    border-radius: 10px;
-    box-shadow: 0 22px 24px -28px rgba(0, 0, 0, 0.2);
+    display: flex;
 
-    &.focus {
-      border: 2px solid #0071fe;
+    &.code {
+      input {
+        background-color: transparent;
+        border: solid 1.5px #eee;
+        border-radius: 6px;
+        padding: 0 16px;
+        color: #999;
+        appearance: textfield;
+        transition: border ease-in-out 0.4s;
+        height: $size-elements-height;
+        width: 2em;
+        font-size: 1em;
+        font-weight: bold;
+        text-align: center;
 
-      label {
-        opacity: 0;
+        &.ng-touched.ng-invalid {
+          border-color: #f66;
+          animation: shake 0.4s ease-in-out;
+
+          &.ng-dirty {
+            color: #f66;
+          }
+        }
+
+        &:focus {
+          border-color: #ffeb3b;
+          color: #212121;
+        }
       }
     }
 
-    &.active {
+
+    &.text {
       input {
-        top: 17px;
+        flex-basis: 100%;
+        background-color: transparent;
+        border: solid 1.5px #eee;
+        border-radius: 6px;
+        padding: 0 16px 0 48px;
+        transition: border ease-in-out 0.4s;
+        height: $size-elements-height;
+
+        &.ng-touched.ng-invalid {
+          border: solid 1.5px #f66;
+          animation: shake 0.4s ease-in-out;
+
+          & ~ .icon,
+          & ~ label {
+            color: #f66;
+          }
+
+          &.ng-dirty {
+            & ~ label {
+              top: 0px;
+              left: 16px;
+              color: #fff;
+              background-color: #f66;
+            }
+          }
+
+          &:focus {
+            & ~ label {
+              top: 0px;
+              left: 16px;
+              color: #fff;
+              background-color: #f66;
+            }
+          }
+        }
+
+        &.ng-valid {
+          & ~ label {
+            top: 0px;
+            left: 16px;
+            color: #999;
+            background-color: #eee;
+          }
+        }
 
         &:focus {
-          & + label {
-            opacity: 1;
+          border: solid 2px #ffeb3b;
+          & ~ label {
+            top: 0px;
+            left: 16px;
+            color: #212121;
+            background-color: #ffeb3b;
+          }
+          & ~ .icon {
+            color: #ffeb3b;
+          }
+
+
+          &.ng-valid {
+            border: solid 2px #6f6;
+            & ~ label {
+              background-color: #6f6;
+            }
+            & ~ .icon {
+              color: #6f6;
+            }
           }
         }
       }
 
+      label,
+      .icon {
+        transition: all ease-in-out 0.4s;
+        background-color: transparent;
+        transform: translateY(-50%);
+        position: absolute;
+        top: 50%;
+      }
+
+      .icon {
+        color: #999;
+        left: 16px;
+      }
+
       label {
-        top: 13px;
-        font-size: 12px;
-        color: #7d838d;
-        opacity: 1;
+        border-radius: 3px;
+        color: #999;
+        left: 48px;
+        padding: 3px 6px;
       }
     }
 
-    &.wrong {
-      animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-      border-color: #fe2946;
+    &.switch {
+      height: $size-elements-height;
+      flex-basis: 100%;
+      background-color: transparent;
+      border: solid 1.5px #eee;
+      border-radius: 6px;
 
-      label {
-        color: #fe2946;
-      }
+      input {
+        appearance: button;
+        position: absolute;
+        border-radius: 3px;
+        margin: 0;
+        top: 8px;
+        left: 8px;
+        height: calc(100% - 16px);
+        width: calc(50% - 16px);
+        background-color: #999;
+        transform: translateX(calc(100% + 16px));
+        transition: background-color, transform .4s ease-in-out;
 
-      .alert {
-        transform: perspective(999px) rotateX(0deg) rotateY(0) rotateZ(0deg);
-        opacity: 1;
-      }
-    }
+        & ~ label {
+          z-index: 1;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
 
-    &.success {
-      border-color: #33d353;
+          &::before {
+            transition: color .4s ease-in-out;
+            content: attr(data-on);
+            color: #999;
+          }
 
-      label {
-        color: #33d353;
-      }
+          &::after {
+            transition: color .4s ease-in-out;
+            content: attr(data-off);
+            color: #fff;
+          }
+        }
 
-      .sc {
-        transform: perspective(999px) rotateX(0deg) rotateY(0) rotateZ(0deg);
-        opacity: 1;
 
-        &::after {
-          width: 0;
+        &:focus {
+          background-color: #ffeb3b;
+          & ~ label {
+            &::before {
+              color: #999;
+            }
+
+            &::after {
+              color: #212121;
+            }
+          }
+
+          &:checked {
+            & ~ label {
+              &::before {
+                color: #212121;
+              }
+
+              &::after {
+                color: #999;
+              }
+            }
+          }
+        }
+
+        &:checked {
+          transform: translateX(0);
+
+          & ~ label {
+            &::before {
+              color: #fff;
+            }
+
+            &::after {
+              color: #999;
+            }
+          }
         }
       }
     }
-
-    label {
-      position: absolute;
-      top: 21px;
-      left: 20px;
-      color: #353a44;
-      transition: all 0.2s ease-in-out;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    input {
-      color: #353a44;
-      height: 30px;
-      width: 260px;
-      padding-left: 20px;
-      padding-right: 20px;
-      font-size: 19px;
-      transition: all 0.2s ease-in-out;
-      border: 2px solid transparent;
-      font-weight: 700;
-      position: relative;
-      top: 15px;
-      border-radius: 10px;
-      font-family: "Lato", sans-serif;
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    .icon {
-      width: 20px;
-      position: absolute;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-    }
-
-    .feedback {
-    }
-  }
-
-}
-
-.alert {
-  position: absolute;
-  height: 64px;
-  width: 64px;
-  right: -2px;
-  top: -2px;
-  transform: perspective(999px) rotateX(0deg) rotateY(-90deg) rotateZ(0deg);
-  transform-origin: right center 0px;
-  transition: all 0.3s ease-in-out;
-  border-radius: 9px;
-  background: url("https://alikinvv.github.io/email-check/build/alert.svg") no-repeat center #fe2946;
-  background-size: 20px;
-  opacity: 0;
-}
-
-.sc {
-  height: 64px;
-  width: 64px;
-  position: absolute;
-  right: -2px;
-  top: -2px;
-  transform: perspective(999px) rotateX(0deg) rotateY(-90deg) rotateZ(0deg);
-  transform-origin: right center 0px;
-  transition: all 0.3s ease-in-out;
-  border-radius: 9px;
-  background: url("https://alikinvv.github.io/email-check/build/success.svg") no-repeat center #33d353;
-  background-size: 50px;
-  opacity: 0;
-
-  &::after {
-    content: "";
-    position: absolute;
-    right: 10px;
-    top: 0;
-    width: 26px;
-    height: 100%;
-    background: #33d353;
-    transition: all 0.4s ease-in-out;
-    transition-delay: 200ms;
   }
 }
