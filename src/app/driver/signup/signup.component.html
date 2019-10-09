@@ -24,7 +24,7 @@
 
     <fieldset class="form__field switch">
       <input formControlName="validationChannel" type="checkbox" id="validationChannel"
-        (ngModelChange)="changeChannel(+$event)" />
+        (ngModelChange)="changeChannel(+$event ? 1 : 0)" />
       <label for="validationChannel" data-on="Celular" data-off="Email"></label>
     </fieldset>
 
